@@ -1,14 +1,18 @@
 import Header from "@/components/Header";
-import { PageContent } from "@/components/styles";
+import { PageContent, Heading } from "@/components/styles";
+import Project from "@/components/Project";
+import useRepos from "@/hooks/useRepos";
 
 const Home = () => {
+    const repos = useRepos();
+
     return (
         <>
             <Header />
             <PageContent>
                 <div className="flex items-center gap-3">
                     <img src="/logo.png" className="w-9 h-9 rounded-full" />
-                    <h1 className="font-semibold text-lg">Nathan Pham</h1>
+                    <Heading>Nathan Pham</Heading>
                 </div>
 
                 <div className="leading-snug mt-6 text-gray-600">
@@ -27,6 +31,14 @@ const Home = () => {
 
                     <p className="mt-2">Listening to Lo-Fi.</p>
                 </div>
+
+                <Heading $as="h2" className="mt-6">
+                    Projects
+                </Heading>
+
+                {repos.map((repo) => (
+                    <Project key={repo.name} repo={repo} />
+                ))}
             </PageContent>
         </>
     );
