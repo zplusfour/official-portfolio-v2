@@ -1,14 +1,14 @@
 interface HeaderSocialProps {
-    src: string;
+    href: string;
     icon: React.ReactNode;
 }
 
-const HeaderSocial = ({ src, icon }: HeaderSocialProps) => (
+const HeaderSocial = ({ href, icon }: HeaderSocialProps) => (
     <a
-        href={src}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-gray-600 hover:text-black pointer"
+        className="text-gray-500 hover:text-black pointer"
     >
         {icon}
     </a>

@@ -22,10 +22,11 @@ const Project = ({ repo }: ProjectProps) => {
             href={repo.homepage || repo.html_url}
             target="_blank"
             rel="noopener noreferrer"
+            className="block mt-3"
         >
             <div
                 key={repo.name}
-                className="border p-4 rounded-lg mt-3 hover:bg-gray-100 transition-colors"
+                className="border p-4 rounded-lg hover:bg-gray-100 transition-colors"
             >
                 <h3 className="font-semibold">{repo.name}</h3>
                 <p className="max-w-md">{repo.description}</p>

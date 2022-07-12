@@ -8,3 +8,10 @@
     background-color: #000;
     color: #fff;
 }
+
+.emoji {
+    display: inline-block;
+    width: auto;
+    height: 1em;
+    vertical-align: -0.125em;
+}

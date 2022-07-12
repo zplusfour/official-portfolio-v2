@@ -5,6 +5,10 @@ export const PageContent = tw.main`
     max-w-xl w-full
 `;
 
-export const Heading = tw.h1`
+export const H = tw.h1`
     font-semibold text-lg
+`;
+
+export const P = tw.p`
+    leading-snug text-gray-600
 `;
