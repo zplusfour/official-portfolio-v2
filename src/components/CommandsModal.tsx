@@ -22,7 +22,10 @@ const CommandsModal = () => {
 
     // custom hooks to simplify modal logic
     // update command highlighter
-    const { css, placeholder, setActiveCommand } = useTop(cardsRef.current);
+    const { css, placeholder, setActiveCommand } = useTop(
+        cardsRef.current,
+        filter
+    );
 
     // hide scrollbar when modal is open
     useHideBody(commandsOpen);
@@ -36,10 +39,10 @@ const CommandsModal = () => {
         },
     });
 
-    const searchLength =
-        commandsFlattened.filter((command) =>
-            (command as Command).name.includes(filter)
-        ).length > 0;
+    const searchFilter = (command: any) =>
+        (command as Command).name.toLowerCase().includes(filter.toLowerCase());
+
+    const searchLength = commandsFlattened.filter(searchFilter).length > 0;
 
     return (
         <AnimatePresence>
@@ -97,11 +100,7 @@ const CommandsModal = () => {
                                                     </CommandLabel>
 
                                                     {commandValues
-                                                        .filter((command) =>
-                                                            command.name.includes(
-                                                                filter
-                                                            )
-                                                        )
+                                                        .filter(searchFilter)
                                                         .map((command) => (
                                                             <CommandBar
                                                                 key={
@@ -150,7 +149,7 @@ export const CommandHighlighted = tw.div`
     absolute -z-10
     h-12 max-w-xl w-full 
     bg-gray-100
-    transition-transform
+    transition-all
 `;
 
 export const CommandBottomPadding = tw.div`
