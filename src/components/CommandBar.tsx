@@ -1,10 +1,10 @@
-import { Command } from "@/Commands";
+import { Command } from "@/commands";
 import { Link } from "react-router-dom";
 
 import tw from "tailwind-styled-components";
 
 type CommandBarProps = Command & {
-    setActiveCommand: Function;
+    setActiveCommand: (target: HTMLElement) => void;
 };
 
 const CommandBar = ({
@@ -32,8 +32,9 @@ const CommandBar = ({
         <CommandBarLink
             {...props}
             onMouseOver={(e: MouseEvent) => {
-                setActiveCommand(e.target);
+                setActiveCommand(e.target as HTMLElement);
             }}
+            id={`command${name}`}
         >
             {icon} {name}
         </CommandBarLink>

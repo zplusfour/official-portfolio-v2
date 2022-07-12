@@ -12,7 +12,7 @@ const createCommand = (
     name: Command["name"]
 ) => ({ icon, href, name });
 
-const Commands: Record<string, Command[]> = {
+const commands: Record<string, Command[]> = {
     Navigation: [
         createCommand(<FiArrowRight />, "/", "Home"),
         createCommand(<FiArrowRight />, "/", "Tools"),
@@ -24,4 +24,10 @@ const Commands: Record<string, Command[]> = {
     ],
 };
 
-export default Commands;
+export default commands;
+
+export const commandsFlattened = Object.entries(commands)
+    .map(([_, commandValue]) => commandValue)
+    .flat(Infinity);
+
+export const defaultCommand = (commandsFlattened[0] as Command).name;

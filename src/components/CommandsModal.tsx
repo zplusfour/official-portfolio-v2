@@ -1,12 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 
-import { useEffect, useRef, useState, WheelEvent } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import useStore from "@/hooks/useStore";
+import useTop from "@/hooks/useTop";
 
 import tw from "tailwind-styled-components";
 
-import Commands from "@/Commands";
+import commands from "@/commands";
 import CommandBar from "@/components/CommandBar";
+import useHideBody from "@/hooks/useHideBody";
+import useKeyboard from "@/hooks/useKeyboard";
 
 const CommandsModal = () => {
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -14,43 +17,24 @@ const CommandsModal = () => {
 
     const commandsOpen = useStore((state) => state.commandsOpen);
     const setCommandsOpen = useStore((state) => state.setCommandsOpen);
-    const [activeCommand, setActiveCommand] = useState<HTMLAnchorElement>();
-    const [forceRefresh, setForceRefresh] = useState<boolean>(false);
 
-    // hide scroll bar
-    useEffect(() => {
-        commandsOpen
-            ? document.body.classList.add("overflow-hidden")
-            : document.body.classList.remove("overflow-hidden");
-    }, [commandsOpen]);
+    const [filter, setFilter] = useState<string>("");
 
-    // open command bar on ctrl + k
-    useEffect(() => {
-        let keys: string[] = [];
+    // custom hooks to simplify modal logic
+    // update command highlighter
+    const { top, setActiveCommand } = useTop(cardsRef.current?.offsetHeight);
 
-        const onKeyDown = (e: KeyboardEvent) => {
-            if (!keys.includes(e.key)) {
-                keys.push(e.key);
-            }
+    // hide scrollbar when modal is open
+    useHideBody(commandsOpen);
 
-            if (keys.includes("Control") && keys.includes("k")) {
-                e.preventDefault();
-                setCommandsOpen(true);
-            }
-        };
-
-        const onKeyUp = (e: KeyboardEvent) => {
-            keys = keys.filter((key) => key !== e.key);
-        };
-
-        window.addEventListener("keydown", onKeyDown);
-        window.addEventListener("keyup", onKeyUp);
-
-        return () => {
-            window.removeEventListener("keydown", onKeyDown);
-            window.removeEventListener("keyup", onKeyUp);
-        };
-    }, []);
+    // open modal on ctrl + k
+    useKeyboard({
+        shortcut: ["Control", "k"],
+        onShortcut: (e) => {
+            e.preventDefault();
+            setCommandsOpen(true);
+        },
+    });
 
     return (
         <AnimatePresence>
@@ -79,43 +63,47 @@ const CommandsModal = () => {
                         <input
                             className="outline-none rounded-t-lg p-4 border-b w-full"
                             type="text"
-                            placeholder={activeCommand?.textContent || "Home"}
+                            placeholder={"Home"}
+                            value={filter}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                setFilter(e.target.value);
+                            }}
                         />
 
                         <CommandHighlighted
                             style={{
-                                top: `${
-                                    (activeCommand?.getBoundingClientRect()
-                                        .top || 357) -
-                                    (cardsRef.current?.offsetHeight || 0) +
-                                    50
-                                }px`,
+                                top: `${top}px`,
                             }}
                         />
 
-                        <div
-                            className="px-4 max-h-60 overflow-y-scroll"
-                            onScroll={() => {
-                                setForceRefresh(!forceRefresh);
-                            }}
-                        >
+                        <div className="px-4 max-h-60 overflow-y-scroll">
                             <div>
-                                {Object.entries(Commands).map(
-                                    ([commandLabel, commands]) => (
+                                {Object.entries(commands).map(
+                                    ([commandLabel, commandValues]) => (
                                         <div key={commandLabel}>
                                             <CommandLabel>
                                                 {commandLabel}
                                             </CommandLabel>
 
-                                            {commands.map((command) => (
-                                                <CommandBar
-                                                    key={command.name}
-                                                    {...command}
-                                                    setActiveCommand={
-                                                        setActiveCommand
-                                                    }
-                                                />
-                                            ))}
+                                            {commandValues
+                                                .filter((command) =>
+                                                    command.name.includes(
+                                                        filter
+                                                    )
+                                                )
+                                                .map((command) => (
+                                                    <CommandBar
+                                                        key={command.name}
+                                                        {...command}
+                                                        setActiveCommand={(
+                                                            target
+                                                        ) => {
+                                                            setActiveCommand(
+                                                                target.id
+                                                            );
+                                                        }}
+                                                    />
+                                                ))}
                                         </div>
                                     )
                                 )}
@@ -135,8 +123,7 @@ export default CommandsModal;
 export const CommandLabel = tw.span`
     block
     text-sm text-gray-500
-    mt-3
-    mb-1
+    mt-3 mb-1
 `;
 
 export const CommandHighlighted = tw.div`
