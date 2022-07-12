@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { PageContent, H, P } from "@/components/styles";
 
-import Tooltip from "@/components/Tooltip";
 import tools from "@/data/tools";
 import Tool from "@/components/Tool";
 
