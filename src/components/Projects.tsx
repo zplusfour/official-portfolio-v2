@@ -34,7 +34,7 @@ const Projects = ({ repos, skeletonCount }: ReposProps) => (
                           <ProjectSkeleton />
                       </motion.div>
                   ))
-                : repos.map((repo, i) => (
+                : repos.map((repo) => (
                       <motion.div key={repo.name} variants={item}>
                           <Project repo={repo} />
                       </motion.div>

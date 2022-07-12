@@ -19,7 +19,11 @@ const Project = ({ repo }: ProjectProps) => {
 
     return (
         <a
-            href={repo.homepage || repo.html_url}
+            href={
+                (repo.homepage && repo.homepage.startsWith("http")
+                    ? repo.homepage
+                    : `https://${repo.homepage}`) || repo.html_url
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="block mt-3"

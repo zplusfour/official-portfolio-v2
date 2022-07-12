@@ -24,7 +24,7 @@ const CommandBar = ({
     } else {
         Object.assign(props, {
             $as: "a",
-            href: href.startsWith("http") ? href : `https://${href}`,
+            href,
             target: "_blank",
             rel: "noopener noreferrer",
         });
