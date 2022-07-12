@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 interface keyboardShortcut {
     shortcut: string[];
@@ -8,19 +8,20 @@ interface keyboardShortcut {
 type useKeyboardProps = keyboardShortcut[];
 
 const useKeyboard = (...shortcuts: useKeyboardProps) => {
-    const [keys, setKeys] = useState<string[]>([]);
-
     useEffect(() => {
+        let keys: string[] = [];
+
         const onKeyDown = (e: KeyboardEvent) => {
-            const newKeys = [...keys, e.key];
-            setKeys([...new Set(newKeys)]);
+            if (!keys.includes(e.key)) {
+                keys.push(e.key);
+            }
 
             for (const keyboardShortcut of shortcuts) {
                 const { shortcut, onShortcut } = keyboardShortcut;
 
                 if (
                     shortcut
-                        .map((key) => newKeys.includes(key))
+                        .map((key) => keys.includes(key))
                         .every((isIncluded) => isIncluded)
                 ) {
                     onShortcut(e);
@@ -29,7 +30,7 @@ const useKeyboard = (...shortcuts: useKeyboardProps) => {
         };
 
         const onKeyUp = (e: KeyboardEvent) => {
-            setKeys(keys.filter((key) => key !== e.key));
+            keys = keys.filter((key) => key !== e.key);
         };
 
         window.addEventListener("keydown", onKeyDown);
@@ -40,10 +41,6 @@ const useKeyboard = (...shortcuts: useKeyboardProps) => {
             window.removeEventListener("keyup", onKeyUp);
         };
     }, []);
-
-    return {
-        keyboard: keys,
-    };
 };
 
 export default useKeyboard;

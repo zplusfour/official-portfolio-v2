@@ -1,15 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import useStore from "@/hooks/useStore";
 import useTop from "@/hooks/useTop";
-
-import tw from "tailwind-styled-components";
-
-import commands from "@/commands";
 import CommandBar from "@/components/CommandBar";
 import useHideBody from "@/hooks/useHideBody";
 import useKeyboard from "@/hooks/useKeyboard";
+
+import tw from "tailwind-styled-components";
+
+import commands, { Command, commandsFlattened } from "@/commands";
 
 const CommandsModal = () => {
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -22,7 +22,7 @@ const CommandsModal = () => {
 
     // custom hooks to simplify modal logic
     // update command highlighter
-    const { top, setActiveCommand } = useTop(cardsRef.current?.offsetHeight);
+    const { top, placeholder, setActiveCommand } = useTop(cardsRef.current);
 
     // hide scrollbar when modal is open
     useHideBody(commandsOpen);
@@ -36,12 +36,17 @@ const CommandsModal = () => {
         },
     });
 
+    const searchLength =
+        commandsFlattened.filter((command) =>
+            (command as Command).name.includes(filter)
+        ).length > 0;
+
     return (
         <AnimatePresence>
             {commandsOpen && (
                 <motion.div
                     key="commandsWrapper"
-                    className="bg-opacity-50 bg-white h-screen w-screen fixed top-0 left-0 z-50 grid place-items-center"
+                    className="bg-opacity-50 bg-white h-screen w-screen fixed top-0 left-0 z-50"
                     ref={wrapperRef}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -52,66 +57,82 @@ const CommandsModal = () => {
                         }
                     }}
                 >
-                    <motion.div
-                        key="commandsCard"
-                        className="relative border rounded-lg shadow-lg max-w-xl w-full bg-white pb-4 isolate overflow-hidden"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        exit={{ scale: 0 }}
-                        ref={cardsRef}
-                    >
-                        <input
-                            className="outline-none rounded-t-lg p-4 border-b w-full"
-                            type="text"
-                            placeholder={"Home"}
-                            value={filter}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                                setFilter(e.target.value);
-                            }}
-                        />
+                    <CommandCenter>
+                        <motion.div
+                            key="commandsCard"
+                            className="relative border rounded-lg shadow-lg bg-white pb-4 isolate overflow-hidden"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            exit={{ scale: 0 }}
+                        >
+                            <input
+                                className="outline-none rounded-t-lg p-4 border-b w-full"
+                                type="text"
+                                placeholder={placeholder}
+                                value={filter}
+                                onChange={(
+                                    e: ChangeEvent<HTMLInputElement>
+                                ) => {
+                                    setFilter(e.target.value);
+                                }}
+                            />
 
-                        <CommandHighlighted
-                            style={{
-                                top: `${top}px`,
-                            }}
-                        />
+                            {searchLength && (
+                                <CommandHighlighted
+                                    style={{
+                                        transform: `translateY(${top}px)`,
+                                    }}
+                                />
+                            )}
 
-                        <div className="px-4 max-h-60 overflow-y-scroll">
-                            <div>
-                                {Object.entries(commands).map(
-                                    ([commandLabel, commandValues]) => (
-                                        <div key={commandLabel}>
-                                            <CommandLabel>
-                                                {commandLabel}
-                                            </CommandLabel>
+                            <div
+                                className="px-4 max-h-60 overflow-y-auto"
+                                ref={cardsRef}
+                            >
+                                <div>
+                                    {!searchLength ? (
+                                        <p className="mt-4">
+                                            No results found.
+                                        </p>
+                                    ) : (
+                                        Object.entries(commands).map(
+                                            ([commandLabel, commandValues]) => (
+                                                <div key={commandLabel}>
+                                                    <CommandLabel>
+                                                        {commandLabel}
+                                                    </CommandLabel>
 
-                                            {commandValues
-                                                .filter((command) =>
-                                                    command.name.includes(
-                                                        filter
-                                                    )
-                                                )
-                                                .map((command) => (
-                                                    <CommandBar
-                                                        key={command.name}
-                                                        {...command}
-                                                        setActiveCommand={(
-                                                            target
-                                                        ) => {
-                                                            setActiveCommand(
-                                                                target.id
-                                                            );
-                                                        }}
-                                                    />
-                                                ))}
-                                        </div>
-                                    )
-                                )}
+                                                    {commandValues
+                                                        .filter((command) =>
+                                                            command.name.includes(
+                                                                filter
+                                                            )
+                                                        )
+                                                        .map((command) => (
+                                                            <CommandBar
+                                                                key={
+                                                                    command.name
+                                                                }
+                                                                {...command}
+                                                                setActiveCommand={(
+                                                                    target
+                                                                ) => {
+                                                                    setActiveCommand(
+                                                                        target.id
+                                                                    );
+                                                                }}
+                                                            />
+                                                        ))}
+                                                </div>
+                                            )
+                                        )
+                                    )}
+                                </div>
                             </div>
 
                             <CommandBottomPadding />
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </CommandCenter>
                 </motion.div>
             )}
         </AnimatePresence>
@@ -124,6 +145,11 @@ export const CommandLabel = tw.span`
     block
     text-sm text-gray-500
     mt-3 mb-1
+`;
+
+export const CommandCenter = tw.div`
+    absolute top-40 left-1/2 -translate-x-1/2 
+    max-w-xl w-full
 `;
 
 export const CommandHighlighted = tw.div`
