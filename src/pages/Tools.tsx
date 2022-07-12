@@ -17,7 +17,11 @@ const Tools = () => {
                 </P>
                 <div className="mt-6">
                     {tools.map((tool, i) => (
-                        <Tool {...tool} lastChild={i == tools.length - 1} />
+                        <Tool
+                            key={tool.name}
+                            {...tool}
+                            lastChild={i == tools.length - 1}
+                        />
                     ))}
                 </div>
                 <Footer />
