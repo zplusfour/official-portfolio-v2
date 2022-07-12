@@ -17,13 +17,16 @@ const Project = ({ repo }: ProjectProps) => {
     const date =
         createdAt == updatedAt ? createdAt : `${createdAt} - ${updatedAt}`;
 
+    let href = repo.html_url;
+    if (repo.homepage) {
+        href = repo.homepage.startsWith("http")
+            ? repo.homepage
+            : `https://${repo.homepage}`;
+    }
+
     return (
         <a
-            href={
-                (repo.homepage && repo.homepage.startsWith("http")
-                    ? repo.homepage
-                    : `https://${repo.homepage}`) || repo.html_url
-            }
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             className="block mt-3"
