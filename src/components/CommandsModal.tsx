@@ -9,7 +9,7 @@ import useKeyboard from "@/hooks/useKeyboard";
 
 import tw from "tailwind-styled-components";
 
-import commands, { Command, commandsFlattened } from "@/commands";
+import commands, { Command, commandsFlattened } from "@/data/commands";
 
 const CommandsModal = () => {
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -22,7 +22,7 @@ const CommandsModal = () => {
 
     // custom hooks to simplify modal logic
     // update command highlighter
-    const { top, placeholder, setActiveCommand } = useTop(cardsRef.current);
+    const { css, placeholder, setActiveCommand } = useTop(cardsRef.current);
 
     // hide scrollbar when modal is open
     useHideBody(commandsOpen);
@@ -46,7 +46,7 @@ const CommandsModal = () => {
             {commandsOpen && (
                 <motion.div
                     key="commandsWrapper"
-                    className="bg-opacity-50 bg-white h-screen w-screen fixed top-0 left-0 z-50"
+                    className="bg-opacity-60 bg-white h-screen w-screen fixed top-0 left-0 z-50"
                     ref={wrapperRef}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -60,7 +60,7 @@ const CommandsModal = () => {
                     <CommandCenter>
                         <motion.div
                             key="commandsCard"
-                            className="relative border rounded-lg shadow-lg bg-white pb-4 isolate overflow-hidden"
+                            className="relative border rounded-lg shadow-xl bg-white pb-4 isolate overflow-hidden"
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             exit={{ scale: 0 }}
@@ -77,13 +77,7 @@ const CommandsModal = () => {
                                 }}
                             />
 
-                            {searchLength && (
-                                <CommandHighlighted
-                                    style={{
-                                        transform: `translateY(${top}px)`,
-                                    }}
-                                />
-                            )}
+                            {searchLength && <CommandHighlighted style={css} />}
 
                             <div
                                 className="px-4 max-h-60 overflow-y-auto"
@@ -115,7 +109,7 @@ const CommandsModal = () => {
                                                                 }
                                                                 {...command}
                                                                 setActiveCommand={(
-                                                                    target
+                                                                    target: HTMLElement
                                                                 ) => {
                                                                     setActiveCommand(
                                                                         target.id
@@ -155,8 +149,8 @@ export const CommandCenter = tw.div`
 export const CommandHighlighted = tw.div`
     absolute -z-10
     h-12 max-w-xl w-full 
-    bg-gray-100 
-    transition-all
+    bg-gray-100
+    transition-transform
 `;
 
 export const CommandBottomPadding = tw.div`

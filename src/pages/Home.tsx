@@ -1,19 +1,23 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Project from "@/components/Project";
-import { PageContent, H, P } from "@/components/styles";
-import { FiInfo } from "react-icons/fi";
+import { PageContent, Button, H, P } from "@/components/styles";
+import { FiArrowUpRight } from "react-icons/fi";
 
 import useRepos from "@/hooks/useRepos";
 import { useEffect } from "react";
 
-import CommandsModal from "@/components/CommandsModal";
+import Tooltip from "@/components/Tooltip";
+import Projects from "@/components/Projects";
+
+import { Link } from "react-router-dom";
+
+const STEP = 10;
 
 const Home = () => {
-    const { repos, loadMoreRepos } = useRepos();
+    const { repos, loadMoreRepos } = useRepos(STEP);
 
+    // infinite scroll to keep loading repos
     useEffect(() => {
-        // infinite scroll to keep loading repos
         const onScroll = () => {
             const { scrollHeight, scrollTop, clientHeight } =
                 document.documentElement;
@@ -29,7 +33,6 @@ const Home = () => {
 
     return (
         <>
-            <CommandsModal />
             <Header />
             <PageContent>
                 <div className="flex items-center gap-3">
@@ -52,19 +55,18 @@ const Home = () => {
 
                 <P className="mt-3">Listening to Lo-Fi.</P>
 
+                <Button className="mt-3" $as={Link} to="/resume">
+                    See resume{" "}
+                    <FiArrowUpRight className="icon group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Button>
+
                 <div className="flex items-center gap-2 mt-6">
                     <H $as="h2">Projects</H>
-                    <div className="relative flex items-center cursor-pointer group">
-                        <FiInfo />
-                        <span className="bg-black rounded-sm text-sm px-1 text-white translate-x-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:translate-x-6 transition-all absolute whitespace-nowrap">
-                            Yes, all of these are mine.
-                        </span>
-                    </div>
+                    <Tooltip text="Yes, these are all mine." />
                 </div>
 
-                {repos.map((repo) => (
-                    <Project key={repo.name} repo={repo} />
-                ))}
+                <Projects repos={repos} skeletonCount={STEP} />
+
                 <Footer />
             </PageContent>
         </>

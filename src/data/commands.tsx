@@ -1,4 +1,5 @@
-import { FiArrowRight, FiTwitter, FiGithub } from "react-icons/fi";
+import { FiArrowRight, FiDribbble, FiTwitter, FiGithub } from "react-icons/fi";
+import { FaDiscord, FaDev } from "react-icons/fa";
 
 export interface Command {
     icon: React.ReactNode;
@@ -15,12 +16,17 @@ const createCommand = (
 const commands: Record<string, Command[]> = {
     Navigation: [
         createCommand(<FiArrowRight />, "/", "Home"),
-        createCommand(<FiArrowRight />, "/", "Tools"),
         createCommand(<FiArrowRight />, "/", "Writing"),
+        createCommand(<FiArrowRight />, "/", "Tools"),
     ],
     Socials: [
         createCommand(<FiTwitter />, "https://twitter.com/phamn23", "Twitter"),
         createCommand(<FiGithub />, "https://github.com/nathan-pham", "Github"),
+        createCommand(
+            <FiDribbble />,
+            "https://dribbble.com/nathan-pham",
+            "Dribbble"
+        ),
     ],
 };
 

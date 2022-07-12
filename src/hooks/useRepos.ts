@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const GITHUB_API = "https://api.github.com/users/nathan-pham/repos";
 
-const useRepos = (step: number = 30) => {
+const useRepos = (step: number = 10) => {
     const [repos, setRepos] = useState<Repos>([]);
     const [page, setPage] = useState<number>(1);
 

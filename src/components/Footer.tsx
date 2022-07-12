@@ -9,7 +9,7 @@ const Footer = () => (
             rel="noopener noreferrer"
             className="hover:text-black transition-colors flex items-center gap-2"
         >
-            <FiMail style={{ color: "inherit" }} />
+            <FiMail className="icon" />
             nathanpham.me@gmail.com
         </a>
     </footer>

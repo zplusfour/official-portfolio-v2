@@ -1,7 +1,8 @@
-import { Command } from "@/commands";
+import { Command } from "@/data/commands";
 import { Link } from "react-router-dom";
 
 import tw from "tailwind-styled-components";
+import useStore from "@/hooks/useStore";
 
 type CommandBarProps = Command & {
     setActiveCommand: (target: HTMLElement) => void;
@@ -13,6 +14,7 @@ const CommandBar = ({
     name,
     setActiveCommand,
 }: CommandBarProps) => {
+    const setCommandsOpen = useStore((state) => state.setCommandsOpen);
     const props = {};
 
     if (href.startsWith("/")) {
@@ -31,10 +33,13 @@ const CommandBar = ({
     return (
         <CommandBarLink
             {...props}
+            id={`command${name}`}
             onMouseOver={(e: MouseEvent) => {
                 setActiveCommand(e.target as HTMLElement);
             }}
-            id={`command${name}`}
+            onClick={() => {
+                setCommandsOpen(false);
+            }}
         >
             {icon} {name}
         </CommandBarLink>
