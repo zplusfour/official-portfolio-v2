@@ -6,6 +6,8 @@ import {
     FiGithub,
 } from "react-icons/fi";
 
+import { SiNotion } from "react-icons/si";
+
 export interface Command {
     icon: React.ReactNode;
     href: string;
@@ -34,6 +36,13 @@ const commands: Record<string, Command[]> = {
         ),
         createCommand(<FiLink />, "https://dev.to/phamn23", "Dev.to"),
         createCommand(<FiLink />, "https://discord.gg/7VfXs3B4z4", "Discord"),
+    ],
+    Other: [
+        createCommand(
+            <SiNotion />,
+            "https://phamn23.notion.site/Programming-Notes-9bd717055867453ab631dab0a1ce2604",
+            "Notion Notes"
+        ),
     ],
 };
 

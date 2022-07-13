@@ -36,12 +36,14 @@ const Home = () => {
         <>
             <Header />
             <PageContent>
-                <div className="flex gap-3 w-20 h-20 relative rounded-md border overflow-hidden">
+                <div className="flex gap-3 w-20 h-20 relative rounded-md border overflow-hidden select-none">
                     <img
+                        draggable={false}
                         src="/logo.png"
                         className="object-cover w-full h-full hover:opacity-0 transition-opacity"
                     />
                     <img
+                        draggable={false}
                         src="/me.jpg"
                         className="object-cover w-full h-full absolute -z-10"
                     />
