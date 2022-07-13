@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { PageContent, Button, H, P } from "@/components/styles";
+import { PageContent, Button, H, P, A } from "@/components/styles";
 import { FiArrowUpRight } from "react-icons/fi";
 
 import useRepos from "@/hooks/useRepos";
@@ -51,7 +51,8 @@ const Home = () => {
                 <P $mt>
                     Mathematician, designer, farmer, student. Engineer would be
                     stretching the titles a bit <Twemoji emoji="😅" />.
-                    Currently I am an intern at HPE Aruba.
+                    Currently I am an intern at{" "}
+                    <A href="https://www.arubanetworks.com/">HPE Aruba</A>.
                 </P>
 
                 <P $mt>
@@ -62,7 +63,13 @@ const Home = () => {
                     shine with React, Next.js and Tailwind.
                 </P>
 
-                <P $mt>Listening to Lo-Fi.</P>
+                <P $mt>
+                    Listening to{" "}
+                    <A href="https://www.youtube.com/watch?v=F0Pvtpwrn0">
+                        Lo-Fi
+                    </A>
+                    .
+                </P>
 
                 <Button $mt $as={Link} to="/resume">
                     See resume <FiArrowUpRight className="icon icon-button" />

@@ -38,3 +38,19 @@ export const Button = tw.button`
     ${({ $mt }: MarginProps) => $mt && "mt-3"}
     ${({ $mtLarge }: MarginProps) => $mtLarge && "mt-6"}
 `;
+
+const PrivateA = tw.a`
+    relative
+    text-yellow-500
+    before:content-[""]
+    before:w-0 before:h-[0.1rem] before:bg-yellow-500
+    before:absolute before:bottom-0 before:left-0
+    hover:before:w-full
+    before:transition-all
+`;
+
+export const A = ({ children, href }: any) => (
+    <PrivateA href={href} target="_blank" rel="noopener noreferrer">
+        {children}
+    </PrivateA>
+);
