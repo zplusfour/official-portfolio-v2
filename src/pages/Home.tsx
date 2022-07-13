@@ -36,14 +36,22 @@ const Home = () => {
         <>
             <Header />
             <PageContent>
-                <div className="flex items-center gap-3">
-                    <img src="/logo.png" className="w-9 h-9 rounded-full" />
-                    <H>Nathan Pham</H>
+                <div className="flex gap-3 w-20 h-20 relative rounded-md border overflow-hidden">
+                    <img
+                        src="/logo.png"
+                        className="object-cover w-full h-full hover:opacity-0 transition-opacity"
+                    />
+                    <img
+                        src="/me.jpg"
+                        className="object-cover w-full h-full absolute -z-10"
+                    />
                 </div>
+                <H $mtLarge>Nathan Pham</H>
 
-                <P $mtLarge>
+                <P $mt>
                     Mathematician, designer, farmer, student. Engineer would be
                     stretching the titles a bit <Twemoji emoji="😅" />.
+                    Currently I am an intern at HPE Aruba.
                 </P>
 
                 <P $mt>
@@ -59,14 +67,6 @@ const Home = () => {
                 <Button $mt $as={Link} to="/resume">
                     See resume <FiArrowUpRight className="icon icon-button" />
                 </Button>
-
-                <H $as="h2" $mtLarge>
-                    Awesome Projects
-                </H>
-                <P $mt>
-                    Curated list of projects that showcase my interests and
-                    skills.
-                </P>
 
                 <div className="flex items-center gap-2 mt-6">
                     <H $as="h2">Projects</H>
