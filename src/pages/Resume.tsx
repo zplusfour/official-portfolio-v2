@@ -1,38 +1,17 @@
-import Twemoji from "@/components/Twemoji";
-import { Button, P } from "@/components/styles";
-import { AnimatePresence, motion } from "framer-motion";
-import CommandKey from "@/components/CommandKey";
+import { Button, H, P } from "@/components/styles";
 
 import { useState, FormEvent, ChangeEvent } from "react";
-
 import tw from "tailwind-styled-components";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { PageContent } from "@/components/styles";
+import { FiArrowUpRight } from "react-icons/fi";
+
+import Twemoji from "@/components/Twemoji";
 
 // intended to keep weirdos away, not actual security lol
 // the resume is actually public in the repo 😂
 const pa$$word = "lmao";
-
-const ResumeIframe = tw.iframe`
-    border-none outline-none 
-    h-screen w-screen 
-    absolute top-0 left-0
-`;
-
-const LockCenter = tw.div`
-    grid place-items-center 
-    h-screen w-screen 
-    absolute left-0 top-0 
-    overflow-hidden
-`;
-
-const LockText = tw(motion.div)`
-    max-w-sm text-center
-`;
-
-const LockInput = tw.input`
-    border outline-none rounded-md
-    py-1 px-2  
-    focus:border-gray-300
-`;
 
 const Resume = () => {
     const [showResume, setShowResume] = useState<boolean>(false);
@@ -50,46 +29,58 @@ const Resume = () => {
 
     return (
         <>
-            <CommandKey className="fixed bottom-3 left-3 z-10" />
+            <Header />
+            <PageContent>
+                <H>Resume</H>
+                <P $mt>
+                    A 5 page list of all of my achievements and
+                    extracurriculars! Unfortunately, I've restricted this page{" "}
+                    <Twemoji emoji="🔒" /> to keep out non-tech savvy weirdos.
+                    Ask me for the password or maybe you can find it yourself
+                    lmao.
+                </P>
 
-            <AnimatePresence>
                 {showResume ? (
-                    <ResumeIframe src="/resume.pdf"></ResumeIframe>
+                    <Button $as="a" href="/resume.pdf" $mtLarge>
+                        Download resume.pdf{" "}
+                        <FiArrowUpRight className="icon icon-button" />
+                    </Button>
                 ) : (
-                    <LockCenter>
-                        <LockText>
-                            <h1 className="text-5xl">
-                                <Twemoji emoji="🔒" />
-                            </h1>
+                    <form
+                        className="mt-6"
+                        onSubmit={verifyPassword}
+                        autoComplete="off"
+                        spellCheck="false"
+                    >
+                        <LockInput
+                            type="text"
+                            className="border py-1 px-2 outline-none rounded-md focus:border-gray-300"
+                            placeholder="bruh"
+                            value={input}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setInput(e.target.value)
+                            }
+                        />
+                        <Button $mt>Submit</Button>
 
-                            <P className="mt-3">
-                                Sorry, this area is restricted. Give me the
-                                password and I might let you through!
-                            </P>
-
-                            <form
-                                className="mt-6 flex gap-3 justify-center"
-                                onSubmit={verifyPassword}
-                                autoComplete="off"
-                                spellCheck="false"
-                            >
-                                <LockInput
-                                    type="text"
-                                    className="border py-1 px-2 outline-none rounded-md focus:border-gray-300"
-                                    placeholder="bruh"
-                                    value={input}
-                                    onChange={(
-                                        e: ChangeEvent<HTMLInputElement>
-                                    ) => setInput(e.target.value)}
-                                />
-                                <Button>Submit</Button>
-                            </form>
-                        </LockText>
-                    </LockCenter>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: `<!-- lmao -->`,
+                            }}
+                        />
+                    </form>
                 )}
-            </AnimatePresence>
+
+                <Footer />
+            </PageContent>
         </>
     );
 };
 
 export default Resume;
+
+const LockInput = tw.input`
+    border outline-none rounded-md
+    py-1 px-2  
+    focus:border-gray-300
+`;

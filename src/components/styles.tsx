@@ -1,5 +1,10 @@
 import tw from "tailwind-styled-components";
 
+interface MarginProps {
+    $mt?: boolean;
+    $mtLarge?: boolean;
+}
+
 export const PageContent = tw.main`
     mt-36 mx-auto
     max-w-xl w-full
@@ -7,10 +12,16 @@ export const PageContent = tw.main`
 
 export const H = tw.h1`
     font-semibold text-lg
-`;
+    
+    ${({ $mt }: MarginProps) => $mt && "mt-3"}
+    ${({ $mtLarge }: MarginProps) => $mtLarge && "mt-6"}
+`; //cannot reuse margin styles because "styled-components".css is not supported
 
 export const P = tw.p`
-    leading-snug text-gray-600
+    text-gray-600
+    
+    ${({ $mt }: MarginProps) => $mt && "mt-3"}
+    ${({ $mtLarge }: MarginProps) => $mtLarge && "mt-6"}
 `;
 
 export const Button = tw.button`
@@ -23,4 +34,7 @@ export const Button = tw.button`
     group
     transition-colors
     hover:text-black
+
+    ${({ $mt }: MarginProps) => $mt && "mt-3"}
+    ${({ $mtLarge }: MarginProps) => $mtLarge && "mt-6"}
 `;

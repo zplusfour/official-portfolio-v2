@@ -10,6 +10,7 @@ import Tooltip from "@/components/Tooltip";
 import Projects from "@/components/Projects";
 
 import { Link } from "react-router-dom";
+import Twemoji from "@/components/Twemoji";
 
 const STEP = 10;
 
@@ -40,30 +41,42 @@ const Home = () => {
                     <H>Nathan Pham</H>
                 </div>
 
-                <P className="mt-6">
+                <P $mtLarge>
                     Mathematician, designer, farmer, student. Engineer would be
-                    stretching the titles a bit. Focused on creating beautiful
-                    and functional apps.
+                    stretching the titles a bit <Twemoji emoji="😅" />.
                 </P>
 
-                <P className="mt-3">
-                    Experimenting with machine learning, game development, and
-                    3D. Currently using Typescript, Java, and Python, but
-                    attempting to learn Rust. Building products with React,
-                    Next.js and Tailwind.
+                <P $mt>
+                    Experimenting with machine learning <Twemoji emoji="🤖" />,
+                    game development, and 3D. Currently using Typescript, Java,
+                    and Python <Twemoji emoji="🐍" />, but attempting to learn
+                    Rust <Twemoji emoji="🦀" />. Focused on building apps that
+                    shine with React, Next.js and Tailwind.
                 </P>
 
-                <P className="mt-3">Listening to Lo-Fi.</P>
+                <P $mt>Listening to Lo-Fi.</P>
 
-                <Button className="mt-3" $as={Link} to="/resume">
-                    See resume{" "}
-                    <FiArrowUpRight className="icon group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <Button $mt $as={Link} to="/resume">
+                    See resume <FiArrowUpRight className="icon icon-button" />
                 </Button>
+
+                <H $as="h2" $mtLarge>
+                    Awesome Projects
+                </H>
+                <P $mt>
+                    Curated list of projects that showcase my interests and
+                    skills.
+                </P>
 
                 <div className="flex items-center gap-2 mt-6">
                     <H $as="h2">Projects</H>
-                    <Tooltip text="Yes, these are all mine." />
+                    <Tooltip text="Yes, all of these projects are mine." />
                 </div>
+
+                <P $mt>
+                    A near infinite list of all of my projects, sorted by last
+                    updated.
+                </P>
 
                 <Projects repos={repos} skeletonCount={STEP} />
 
