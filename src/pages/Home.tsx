@@ -1,10 +1,10 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { PageContent, Button, H, P, A } from "@/components/styles";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiSmile } from "react-icons/fi";
 
 import useRepos from "@/hooks/useRepos";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Tooltip from "@/components/Tooltip";
 import Projects from "@/components/Projects";
@@ -12,12 +12,11 @@ import Projects from "@/components/Projects";
 import { Link } from "react-router-dom";
 import Twemoji from "@/components/Twemoji";
 
-import ScrollTop from "@/components/ScrollTop";
-
 const STEP = 10;
 
 const Home = () => {
     const { repos, loadMoreRepos } = useRepos(STEP);
+    const [infiniteEnabled, setInfiniteEnabled] = useState<boolean>(false);
 
     // infinite scroll to keep loading repos
     useEffect(() => {
@@ -25,14 +24,17 @@ const Home = () => {
             const { scrollHeight, scrollTop, clientHeight } =
                 document.documentElement;
 
-            if (scrollTop + clientHeight > scrollHeight - 5) {
+            if (
+                scrollTop + clientHeight > scrollHeight - 5 &&
+                infiniteEnabled
+            ) {
                 loadMoreRepos();
             }
         };
 
         window.addEventListener("scroll", onScroll);
         return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+    }, [infiniteEnabled]);
 
     return (
         <>
@@ -52,9 +54,10 @@ const Home = () => {
                 </div>
                 <H $mtLarge>Nathan Pham</H>
 
+                <P $mt>Programmer, designer, farmer, leader.</P>
+
                 <P $mt>
-                    Programmer, designer, farmer, leader. Currently I am an
-                    intern at{" "}
+                    Currently I am an intern at{" "}
                     <A href="https://www.arubanetworks.com/">HPE Aruba</A> and{" "}
                     <A href="https://www.csus.edu/center/center-california-studies/legischool-project.html">
                         LegiSchool
@@ -93,8 +96,11 @@ const Home = () => {
                 </P>
 
                 <Projects repos={repos} skeletonCount={STEP} />
-
-                <ScrollTop />
+                {!infiniteEnabled && (
+                    <Button $mt onClick={() => setInfiniteEnabled(true)}>
+                        Load infinite projects <FiSmile className="icon" />
+                    </Button>
+                )}
                 <Footer />
             </PageContent>
         </>
