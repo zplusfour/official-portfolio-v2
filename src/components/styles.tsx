@@ -7,7 +7,7 @@ interface MarginProps {
 
 export const PageContent = tw.main`
     mt-36 mx-auto
-    max-w-xl w-full
+    max-w-2xl w-full px-5
 `;
 
 export const H = tw.h1`

@@ -12,6 +12,8 @@ import Projects from "@/components/Projects";
 import { Link } from "react-router-dom";
 import Twemoji from "@/components/Twemoji";
 
+import ScrollTop from "@/components/ScrollTop";
+
 const STEP = 10;
 
 const Home = () => {
@@ -92,6 +94,7 @@ const Home = () => {
 
                 <Projects repos={repos} skeletonCount={STEP} />
 
+                <ScrollTop />
                 <Footer />
             </PageContent>
         </>
