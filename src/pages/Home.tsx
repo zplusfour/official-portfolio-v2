@@ -51,10 +51,13 @@ const Home = () => {
                 <H $mtLarge>Nathan Pham</H>
 
                 <P $mt>
-                    Mathematician, designer, farmer, student. Engineer would be
-                    stretching the titles a bit <Twemoji emoji="😅" />.
-                    Currently I am an intern at{" "}
-                    <A href="https://www.arubanetworks.com/">HPE Aruba</A>.
+                    Programmer, designer, farmer, leader. Currently I am an
+                    intern at{" "}
+                    <A href="https://www.arubanetworks.com/">HPE Aruba</A> and{" "}
+                    <A href="https://www.csus.edu/center/center-california-studies/legischool-project.html">
+                        LegiSchool
+                    </A>
+                    .
                 </P>
 
                 <P $mt>
