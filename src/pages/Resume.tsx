@@ -53,7 +53,7 @@ const Resume = () => {
                         spellCheck="false"
                     >
                         <LockInput
-                            type="text"
+                            type="password"
                             className="border py-1 px-2 outline-none rounded-md focus:border-gray-300"
                             placeholder="bruh"
                             value={input}
