@@ -75,7 +75,7 @@ const Home = () => {
 
                 <P $mt>
                     Listening to{" "}
-                    <A href="https://www.youtube.com/watch?v=F0Pvtpwrn0">
+                    <A href="https://www.youtube.com/playlist?list=PLmzoY5mF73HsrCann9U0DN0xelmEyPOrb">
                         Lo-Fi
                     </A>
                     .
