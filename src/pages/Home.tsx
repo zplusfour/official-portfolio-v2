@@ -57,7 +57,7 @@ const Home = () => {
                 <P $mt>Programmer, designer, farmer, leader.</P>
 
                 <P $mt>
-                    Currently I am an intern at{" "}
+                    Over the summer I interned with{" "}
                     <A href="https://www.arubanetworks.com/">HPE Aruba</A> and{" "}
                     <A href="https://www.csus.edu/center/center-california-studies/legischool-project.html">
                         LegiSchool
@@ -84,6 +84,11 @@ const Home = () => {
                 <Button $mt $as={Link} to="/resume">
                     See resume <FiArrowUpRight className="icon icon-button" />
                 </Button>
+
+                <H $as="h2" $mtLarge>
+                    Curated Projects
+                </H>
+                <P $mt>The more important list of projects.</P>
 
                 <div className="flex items-center gap-2 mt-6">
                     <H $as="h2">Projects</H>
