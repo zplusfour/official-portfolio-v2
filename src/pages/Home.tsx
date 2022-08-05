@@ -150,7 +150,7 @@ const Home = () => {
                         <A href="https://devpost.com/nathan-pham">
                             few hackathons
                         </A>{" "}
-                        with some friends
+                        with friends
                     </li>
                 </Ul>
 
