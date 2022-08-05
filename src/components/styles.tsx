@@ -24,6 +24,13 @@ export const P = tw.p`
     ${({ $mtLarge }: MarginProps) => $mtLarge && "mt-6"}
 `;
 
+export const Ul = tw.ul`
+    list-disc ml-4 leading-relaxed text-gray-600
+    
+    ${({ $mt }: MarginProps) => $mt && "mt-3"}
+    ${({ $mtLarge }: MarginProps) => $mtLarge && "mt-6"}
+`;
+
 export const Button = tw.button`
     flex items-center gap-2
     py-1 px-2 w-fit

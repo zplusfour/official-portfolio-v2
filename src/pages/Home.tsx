@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { PageContent, Button, H, P, A } from "@/components/styles";
+import { PageContent, Button, H, P, A, Ul } from "@/components/styles";
 import { FiArrowUpRight, FiSmile } from "react-icons/fi";
 
 import useRepos from "@/hooks/useRepos";
@@ -86,18 +86,84 @@ const Home = () => {
                 </Button>
 
                 <H $as="h2" $mtLarge>
-                    Curated Projects
+                    Media
                 </H>
-                <P $mt>The more important list of projects.</P>
+
+                <Ul $mt>
+                    <li>
+                        Hosted a 1-hour{" "}
+                        <A href="https://www.youtube.com/watch?v=Zql7EWkGkjA&list=PLto9KpJAqHMR-DyzKE3_phAUc33tJYZuu">
+                            creative coding workshop
+                        </A>{" "}
+                        with Replit <Twemoji emoji="🎨" />
+                    </li>
+                    <li>
+                        Wrote <Twemoji emoji="✒️" /> some stuff for the{" "}
+                        <A href="https://developerscollective.tech/">
+                            Developers Collective
+                        </A>{" "}
+                        and my personal{" "}
+                        <A href="https://dev.to/phamn23">blog</A>
+                    </li>
+                </Ul>
+
+                <H $as="h2" $mtLarge>
+                    Epic Projects
+                </H>
+
+                <Ul $mt>
+                    <li>
+                        Estimated the{" "}
+                        <A href="https://github.com/nathan-pham/chicken-research">
+                            mass of a chicken from an image
+                        </A>{" "}
+                        with machine learning
+                    </li>
+                    <li>
+                        Published a{" "}
+                        <A href="https://github.com/nathan-pham/intere-app">
+                            COVID-19 simulation
+                        </A>{" "}
+                        to Google Play
+                    </li>
+
+                    <li>
+                        Cloned{" "}
+                        <A href="https://github.com/nathan-pham/doodle">
+                            Google
+                        </A>{" "}
+                        and{" "}
+                        <A href="https://github.com/nathan-pham/clone-medium">
+                            Medium
+                        </A>{" "}
+                        for fun
+                    </li>
+                    <li>
+                        Made some{" "}
+                        <A href="https://creative.nathanpham.me">
+                            generative art
+                        </A>
+                    </li>
+
+                    <li>
+                        Also won a{" "}
+                        <A href="https://devpost.com/nathan-pham">
+                            few hackathons
+                        </A>{" "}
+                        with some friends
+                    </li>
+                </Ul>
 
                 <div className="flex items-center gap-2 mt-6">
                     <H $as="h2">Projects</H>
-                    <Tooltip text="Yes, all of these projects are mine." />
+                    <Tooltip text="Yes, all of these are mine." />
                 </div>
 
                 <P $mt>
-                    A near infinite list of all of my projects, sorted by last
-                    updated.
+                    A near infinite <Twemoji emoji="♾️" /> list of all of my
+                    projects, sorted by last updated. Clicking on a link will
+                    either bring you to the deployed version or the Github
+                    repository.
                 </P>
 
                 <Projects repos={repos} skeletonCount={STEP} />
