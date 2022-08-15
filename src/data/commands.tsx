@@ -1,5 +1,6 @@
 import {
     FiArrowRight,
+    FiAlertTriangle,
     FiLink,
     FiDribbble,
     FiTwitter,

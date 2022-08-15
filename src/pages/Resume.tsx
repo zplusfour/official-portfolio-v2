@@ -41,10 +41,21 @@ const Resume = () => {
                 </P>
 
                 {showResume ? (
-                    <Button $as="a" href="/resume.pdf" $mtLarge>
-                        Download resume.pdf{" "}
-                        <FiArrowUpRight className="icon icon-button" />
-                    </Button>
+                    <>
+                        <Button
+                            $as="a"
+                            href="/resume.pdf"
+                            target="_blank"
+                            $mtLarge
+                        >
+                            Download resume.pdf{" "}
+                            <FiArrowUpRight className="icon icon-button" />
+                        </Button>
+                        <Button $as="a" href="/cv.pdf" target="_blank" $mt>
+                            Download cv.pdf{" "}
+                            <FiArrowUpRight className="icon icon-button" />
+                        </Button>
+                    </>
                 ) : (
                     <form
                         className="mt-6"
