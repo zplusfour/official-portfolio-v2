@@ -28,7 +28,7 @@ const CommandsModal = () => {
     );
 
     // hide scrollbar when modal is open
-    useHideBody(commandsOpen);
+    // useHideBody(commandsOpen);
 
     // open modal on ctrl + k
     useKeyboard({

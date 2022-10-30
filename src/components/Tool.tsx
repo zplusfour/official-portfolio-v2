@@ -10,20 +10,20 @@ const Tool = ({
 }: ToolProps & { lastChild: boolean }) => (
     <>
         <a
-            className="hover:bg-gray-100 transition-colors flex items-center gap-6 p-3 rounded-lg"
+            className="hover:bg-gray-100 mt-3 bg-white border transition-colors flex items-center gap-6 p-3 rounded-lg"
             href={href}
             target="_blank"
             rel="noopener noreferrer"
         >
             <span className="text-2xl">{icon}</span>
             <div>
-                <H className="text-base font-medium">{name}</H>
+                <h1 className="text-base font-medium">{name}</h1>
                 <P className="text-sm text-gray-500 leading-snug">
                     {description}
                 </P>
             </div>
         </a>
-        {!lastChild && <hr className="my-2 ml-[3.75rem] max-w-full" />}
+        {/* {!lastChild && <hr className="my-2 ml-[3.75rem] max-w-full" />} */}
     </>
 );
 

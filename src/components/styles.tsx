@@ -1,3 +1,5 @@
+import { RoughNotation } from "react-rough-notation";
+
 import tw from "tailwind-styled-components";
 
 interface MarginProps {
@@ -10,12 +12,23 @@ export const PageContent = tw.main`
     max-w-2xl w-full px-5
 `;
 
-export const H = tw.h1`
+// cannot reuse margin styles because "styled-components".css is not supported
+const PrivateH = tw.h1`
     font-semibold text-lg
     
     ${({ $mt }: MarginProps) => $mt && "mt-3"}
     ${({ $mtLarge }: MarginProps) => $mtLarge && "mt-6"}
-`; //cannot reuse margin styles because "styled-components".css is not supported
+`;
+
+export const H = ({ children, ...props }: any) => {
+    return (
+        <PrivateH {...props}>
+            <RoughNotation type="highlight" color="rgb(254, 240, 138)" show>
+                {children}
+            </RoughNotation>
+        </PrivateH>
+    );
+};
 
 export const P = tw.p`
     text-gray-600
@@ -41,6 +54,7 @@ export const Button = tw.button`
     group
     transition-colors
     hover:text-black
+    bg-white
 
     ${({ $mt }: MarginProps) => $mt && "mt-3"}
     ${({ $mtLarge }: MarginProps) => $mtLarge && "mt-6"}
@@ -48,16 +62,12 @@ export const Button = tw.button`
 
 const PrivateA = tw.a`
     relative
-    text-yellow-500
-    before:content-[""]
-    before:w-0 before:h-[0.1rem] before:bg-yellow-500
-    before:absolute before:bottom-0 before:left-0
-    hover:before:w-full
-    before:transition-all
 `;
 
 export const A = ({ children, href }: any) => (
     <PrivateA href={href} target="_blank" rel="noopener noreferrer">
-        {children}
+        <RoughNotation type="underline" color="#447bff" show>
+            {children}
+        </RoughNotation>
     </PrivateA>
 );

@@ -33,7 +33,7 @@ const Project = ({ repo }: ProjectProps) => {
         >
             <div
                 key={repo.name}
-                className="border p-4 rounded-lg hover:bg-gray-100 transition-colors"
+                className="border p-4 rounded-lg bg-white hover:bg-gray-100 transition-colors"
             >
                 <h3 className="font-semibold">{repo.name}</h3>
                 <p className="max-w-md">{repo.description}</p>
