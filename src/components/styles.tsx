@@ -66,7 +66,7 @@ const PrivateA = tw.a`
 
 export const A = ({ children, href }: any) => (
     <PrivateA href={href} target="_blank" rel="noopener noreferrer">
-        <RoughNotation type="underline" color="#447bff" show>
+        <RoughNotation type="underline" color="#447bff" show strokeWidth={2}>
             {children}
         </RoughNotation>
     </PrivateA>
